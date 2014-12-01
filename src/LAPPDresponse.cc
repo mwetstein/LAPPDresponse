@@ -126,10 +126,7 @@ TH1D* LAPPDresponse::GetTrace(int CHnumber, int parity, double starttime, double
 
 	 double tottime = ptime + stime;
 
-	 std::cout<<"hmmhaw "<<" "<<tottime<<" "<<std::endl;
-
-
-	  for(int j=0; j<numsamples; j++){
+	 for(int j=0; j<numsamples; j++){
 
 	  	double bcent = trace->GetBinCenter(j+1);
 
@@ -142,7 +139,7 @@ TH1D* LAPPDresponse::GetTrace(int CHnumber, int parity, double starttime, double
 
 		double obincontent = trace->GetBinContent(j+1);
 		trace->SetBinContent(j+1,obincontent+mbincontent);
-		std::cout<<bcent<<std::endl;
+
           } 
        }
   }
