@@ -30,8 +30,8 @@
  double couse = mlappd->StripCoordinate(stripuse);
  cout<<"strip number: "<<stripuse<<" stripcoordinate: "<<couse<<endl;
 
- mlappd->AddSinglePhotonTrace(coor, 50, 1000);
- mlappd->AddSinglePhotonTrace(coor, 50, 2800);
+ mlappd->AddSinglePhotonTrace(coor-20.0, 50, 1000);
+ mlappd->AddSinglePhotonTrace(coor-22.0, 50, 2800);
 
 
  LAPPDpulseCluster* mclust = mlappd->GetPulseCluster();
@@ -41,9 +41,9 @@
 
  }
 
-  TH1D* mtrace_right = mlappd->GetTrace(28, 1, 800, 100., 300);
+  TH1D* mtrace_right = mlappd->GetTrace(26, 1, 800, 100., 300);
   mtrace_right->Draw("L*");
-  TH1D* mtrace_left = mlappd->GetTrace(28, -1, 800, 100., 300);
+  TH1D* mtrace_left = mlappd->GetTrace(26, -1, 800, 100., 300);
   mtrace_left->SetLineColor(2);
   mtrace_left->Draw("L* SAME");
 
