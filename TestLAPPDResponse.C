@@ -51,13 +51,14 @@
 
 
   // Get the trace from the right side of strip #26
-  // GetTrace(stripnumber, parity(+1=right, -1=left), start_time (psec), interval_between_samples (psec), number_of_samples)
-  TH1D* mtrace_right = mlappd->GetTrace(26, 1, 800, 100., 300);
-   mtrace_right->Draw("L*");
-  // Get the trace from the left side of strip #26
-  TH1D* mtrace_left = mlappd->GetTrace(26, -1, 800, 100., 300);
+  // GetTrace(stripnumber, parity(+1=right, -1=left), start_time (psec), interval_between_samples (psec), number_of_samples, noise (mV))
+  TH1D* mtrace_right = mlappd->GetTrace(26, 1, 800, 100., 300, 1.0);
+  mtrace_right->Draw("L*");
+  // Get the trace from the left side of strip #26 
+  TH1D* mtrace_left = mlappd->GetTrace(26, -1, 800, 100., 300, 1.0);
   mtrace_left->SetLineColor(2);
   mtrace_left->Draw("L* SAME");
+ 
 
   // Make a 2D hist of the response on the right side of 4 strips
   double highedge = mtrace_right->GetXaxis()->GetXmax();
@@ -65,7 +66,7 @@
   TH2D* trace2d = new TH2D("trace2d","trace2d",4,25,29,300,lowedge,highedge);
   
   for(int i=25; i<29; i++){
-      TH1D* ttrace =  mlappd->GetTrace(i, 1, 800, 100., 300);
+      TH1D* ttrace =  mlappd->GetTrace(i, 1, 800, 100., 300, 1.0);
       for(int j=0; j<300; j++){
 	double bcont = ttrace->GetBinContent(j+1);
 	trace2d->SetBinContent(i-24,j-1,-bcont);
@@ -75,5 +76,6 @@
 
   TCanvas* tc = new TCanvas();
   trace2d->Draw("surf3");
+
 }
 
