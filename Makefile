@@ -45,13 +45,13 @@ LAPPD_LIBS += -lLAPPD
 
 all: clean rootcint shared
 
-ROOTSO := $(LIBDIR)/LAPPDresponse.so
+ROOTSO := $(LIBDIR)/libLAPPD.so
 
 ROOTDICT := $(SRCDIR)/LAPPDRootDict.cc
 
-ROOTSRC := $(SRCDIR)/LAPPDresponse.cc $(INCDIR)/LAPPDresponse.hh $(INCDIR)/LAPPDLinkDef.hh
+ROOTSRC := $(SRCDIR)/LAPPDpulse.cc $(INCDIR)/LAPPDpulse.hh $(SRCDIR)/LAPPDpulseCluster.cc $(INCDIR)/LAPPDpulseCluster.hh $(SRCDIR)/LAPPDresponse.cc $(INCDIR)/LAPPDresponse.hh  $(INCDIR)/LAPPDLinkDef.hh
 
-ROOTOBJS := $(TMPDIR)/LAPPDresponse.o $(TMPDIR)/LAPPDRootDict.o
+ROOTOBJS := $(TMPDIR)/LAPPDpulse.o $(TMPDIR)/LAPPDpulseCluster.o $(TMPDIR)/LAPPDresponse.o $(TMPDIR)/LAPPDRootDict.o
 
 $(TMPDIR)/%.o : $(SRCDIR)/%.cc
 	@echo "<**Compiling $@**>"
@@ -67,7 +67,7 @@ $(ROOTDICT) : $(ROOTSRC)
 
 rootcint : $(ROOTSRC)
 	@echo "<**Rootcint**>"
-	rootcint -f $(ROOTDICT) -c -I$(INCDIR) -I$(LAPPD_INCDIR) -I$(shell root-config --incdir) LAPPDresponse.hh
+	rootcint -f $(ROOTDICT) -c -I$(INCDIR) -I$(LAPPD_INCDIR) -I$(shell root-config --incdir) LAPPDpulse.hh LAPPDpulseCluster.hh LAPPDresponse.hh
 shared: $(ROOTDICT) $(ROOTSRC) $(ROOTOBJS)
 	@echo "<**Shared**>"
 ifeq ($(UNAME), Darwin) 
