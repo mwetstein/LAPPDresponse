@@ -41,11 +41,33 @@
 
  }
 
+
+ // TH1D* mtrace_right = mlappd->GetTrace(11, 1, 800, 100., 300);
+
+
   TH1D* mtrace_right = mlappd->GetTrace(26, 1, 800, 100., 300);
   mtrace_right->Draw("L*");
   TH1D* mtrace_left = mlappd->GetTrace(26, -1, 800, 100., 300);
   mtrace_left->SetLineColor(2);
   mtrace_left->Draw("L* SAME");
 
+
+  double highedge = mtrace_right->GetXaxis()->GetXmax();
+  double lowedge = mtrace_right->GetXaxis()->GetXmin();
+
+  TH2D* trace2d = new TH2D("trace2d","trace2d",4,25,29,300,lowedge,highedge);
+  
+  for(int i=25; i<29; i++){
+      TH1D* ttrace =  mlappd->GetTrace(i, 1, 800, 100., 300);
+      for(int j=0; j<300; j++){
+	double bcont = ttrace->GetBinContent(j+1);
+	trace2d->SetBinContent(i-24,j-1,-bcont);
+	//cout<<i-24<<" "<<j-1<<" "<<bcont<<endl;
+      }
+  }
+
+  TCanvas* tc = new TCanvas();
+  trace2d->Draw("surf3");
+ // trace2d->Draw("SPEC dm(1,10) pa(2,1,1) ci(1,4,8) a(15,45,0)");
 }
 
