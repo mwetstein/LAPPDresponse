@@ -17,7 +17,7 @@ class LAPPDresponse : public TObject {
 
   void AddSinglePhotonTrace(double trans, double para, double time);
 	
-  TH1D* GetTrace(int CHnumber, int parity, double starttime, double samplesize, int numsamples);
+  TH1D* GetTrace(int CHnumber, int parity, double starttime, double samplesize, int numsamples, double thenoise);
 
   int FindStripNumber(double trans);
 
@@ -36,9 +36,6 @@ class LAPPDresponse : public TObject {
   TH1D* _templatepulse;
   TH1D* _PHD;
   TH1D* _pulsewidth; 
-  double _noiselevel;
-  int _nsamples;
-  double _samplewidth;
 
   //output responses
   TH1D** StripResponse_neg;
