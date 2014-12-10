@@ -1,7 +1,7 @@
 #include "LAPPDpulse.hh"
 #include "LAPPDpulseCluster.hh"
 #include "TObject.h"
-#include "TSTring.h"
+#include "TString.h"
 #include "TFile.h"
 #include "TH1.h"
 #include "TF1.h"
